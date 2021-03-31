@@ -40,98 +40,47 @@ public class Project_Release_1 {
     public static void main(String[] args) {
         
         int total = NStudent + NStaff + EStudent + EStaff + SStudent + SStaff + WStudent + WStaff;
+        int[] totalSpots = {200, 200, 200, 200, 200, 200, 200, 200};
+        int[] takenSpots = {NStudent, NStaff, EStudent, EStaff, SStudent, SStaff, WStudent, WStaff};
+        String[] parkLots = {"North Student Parking", "North Staff Parking", "East Student Parking", 
+                             "East Staff Parking", "South Student Parking", 
+                             "South Staff Parking", "West Student Parking", "West Staff Parking"};
         System.out.println(total);
-        NSParking = NSParking - 30;
-        System.out.println(NSParking);
-        simulate(total);
-
+        simulate(takenSpots, totalSpots, parkLots);
+        
     }
     
-    public static void simulate(int total) {
-        while (!(NSParking <= 0 && NStParking <= 0 && ESParking <= 0 && EStParking <= 0 && 
-        		SSParking <= 0 && SStParking <= 0 && WSParking <= 0 && WStParking <= 0)){
-        	System.out.println(total);
-          if(NSParking > 0){
-        	  NSParking -= NStudent;
-        	  System.out.println("There are " + (NSParking) + " empty parking spots left at North Student Parking");
-        	  int rando = rand.nextInt(10);
-        	  NStudent += rando;
-        	  total += rando;
-	      }
-	      if(NSParking <= 0){
-	          System.out.println("There are no empty parking spots left at North Student Parking");
-	      }
-	      if(NStParking > 0){
-	    	  NStParking -= NStaff;
-	          System.out.println("There are " + (NStParking)+ " empty parking spots left at North Staff Parking");
-        	  int rando = rand.nextInt(10);
-        	  NStaff += rando;
-        	  total += rando;
-	      }
-	      if(NStParking <= 0){
-	          System.out.println("There are no empty parking spots left at North Staff Parking");
-	      }
-	      if(ESParking > 0){
-	    	  ESParking -= EStudent;
-	          System.out.println("There are " + (ESParking) + " empty parking spots left at East Student Parking");
-        	  int rando = rand.nextInt(10);
-        	  EStudent += rando;
-        	  total += rando;
-	      }
-	      if(ESParking <= 0){
-	          System.out.println("There are no empty parking spots left at East Student Parking");
-	      }
-	      if(EStParking > 0){
-	    	  EStParking -= EStaff;
-	          System.out.println("There are " + (EStParking) + " empty parking spots left at East Staff Parking");
-        	  int rando = rand.nextInt(10);
-        	  EStaff += rando;
-        	  total += rando;
-	      }
-	      if(EStParking <= 0){
-	          System.out.println("There are no empty parking spots left at East Staff Parking");
-	      }
-	      if(SSParking > 0){
-	    	  SSParking -= SStudent;
-	          System.out.println("There are " + (SSParking) + " empty parking spots left at South Student Parking");
-        	  int rando = rand.nextInt(10);
-        	  SStudent += rando;
-        	  total += rando;
-	      }
-	      if(SSParking <= 0){
-	          System.out.println("There are no empty parking spots left at South Student Parking");
-	      }
-	      if(SStParking > 0){
-	    	  SStParking -= SStaff;
-	          System.out.println("There are " + (SStParking) + " empty parking spots left at South Staff Parking");
-        	  int rando = rand.nextInt(10);
-        	  SStaff += rando;
-        	  total += rando;
-	      }
-	      if(SStParking <= 0){
-	          System.out.println("There are no empty parking spots left at South Staff Parking");
-	      }
-	      if(WSParking > 0){
-	    	  WSParking -= WStudent;
-	          System.out.println("There are " + (WSParking) + " empty parking spots left at West Student Parking");
-        	  int rando = rand.nextInt(10);
-        	  WStudent += rando;
-        	  total += rando;
-	      }
-	      if(WSParking <= 0){
-	          System.out.println("There are no empty parking spots left at West Student Parking");
-	      }
-	      if(WStParking > 0){
-	    	  WStParking -= WStaff;
-	          System.out.println("There are " + (WStParking)+ " empty parking spots left at West Staff Parking");
-        	  int rando = rand.nextInt(10);
-        	  WStaff += rando;
-        	  total += rando;
-	      }
-	      if(WStParking <= 0){
-	          System.out.println("There are no empty parking spots left at West Staff Parking");
-	      }
-        }
+    
+    public static void spotsAvailable(int lotSpots, int spotsTaken, String a) {
+    	
+    	if(lotSpots > 0) {
+    		lotSpots -= spotsTaken;
+    		System.out.println("There are " + (lotSpots) + " empty parking spots left at " + a);
+    	}
+    	else if(lotSpots <= 0){
+	    	System.out.println("There are no empty parking spots left at " + a);
+	    }
+    }
+    
+    
+    public static void simulate(int[] tArr, int[] spotsArr, String[] lots) {
+    	while(1==1){
+        	for(int i = 0; i < lots.length; i++) {
+        		spotsAvailable(spotsArr[i], tArr[i], lots[i]);
+        	}
+    	}
+        	
+        
+    }
+    
+    
+    
+    public int averageSpots(int[] tArr, int[] spotsArr, String[] lots) {
+    	
+    	
+    	
+    	
+    	return 1;
     }
     
 }
