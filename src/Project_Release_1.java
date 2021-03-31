@@ -32,6 +32,9 @@ public class Project_Release_1 {
     static int SStaff = rand.nextInt(50); //Assigning random number spots taken
     static int WStudent = rand.nextInt(50); //Assigning random number spots taken
     static int WStaff = rand.nextInt(50); //Assigning random number spots taken
+    static int[] spotsAvail = {200, 200, 200, 200, 200, 200, 200, 200};
+    static int[] takenSpots = {NStudent, NStaff, EStudent, EStaff, SStudent, SStaff, WStudent, WStaff};
+    
     
 	public Project_Release_1() {
 		
@@ -40,21 +43,18 @@ public class Project_Release_1 {
     public static void main(String[] args) {
         
         int total = NStudent + NStaff + EStudent + EStaff + SStudent + SStaff + WStudent + WStaff;
-        int[] totalSpots = {200, 200, 200, 200, 200, 200, 200, 200};
-        int[] takenSpots = {NStudent, NStaff, EStudent, EStaff, SStudent, SStaff, WStudent, WStaff};
         String[] parkLots = {"North Student Parking", "North Staff Parking", "East Student Parking", 
                              "East Staff Parking", "South Student Parking", 
                              "South Staff Parking", "West Student Parking", "West Staff Parking"};
         System.out.println(total);
-        simulate(takenSpots, totalSpots, parkLots);
+        simulate(parkLots);
         
     }
     
     
-    public static void spotsAvailable(int lotSpots, int spotsTaken, String a) {
+    public static void spotsAvailable(int lotSpots, String a) {
     	
     	if(lotSpots > 0) {
-    		lotSpots -= spotsTaken;
     		System.out.println("There are " + (lotSpots) + " empty parking spots left at " + a);
     	}
     	else if(lotSpots <= 0){
@@ -63,24 +63,33 @@ public class Project_Release_1 {
     }
     
     
-    public static void simulate(int[] tArr, int[] spotsArr, String[] lots) {
-    	while(1==1){
+    public static void simulate(String[] lots) {
+
+    	int ind = 0;
+    	int[] aver = {0, 0, 0, 0, 0, 0, 0, 0};
+    	while(ind != 7) {
         	for(int i = 0; i < lots.length; i++) {
-        		spotsAvailable(spotsArr[i], tArr[i], lots[i]);
+        		spotsAvail[i] -= takenSpots[i];
+        		spotsAvailable(spotsAvail[i], lots[i]);
+        		aver[i] += takenSpots[i];
+        		takenSpots[i] = rand.nextInt(50);
         	}
+        	System.out.println();
+        	ind++;
     	}
-        	
+    	int lotAver = 0;
+    	
+    	for(int i = 0; i < aver.length;i++) {
+    		lotAver = averageSpots(aver[i], 7);
+    		System.out.println("The average spots used after each day for " + lots[i] + " is " + lotAver);
+    	}
         
     }
     
     
     
-    public int averageSpots(int[] tArr, int[] spotsArr, String[] lots) {
-    	
-    	
-    	
-    	
-    	return 1;
+    public static int averageSpots(int a, int b) {
+    	return a/b;
     }
     
 }
