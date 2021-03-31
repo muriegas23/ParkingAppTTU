@@ -34,6 +34,7 @@ public class Project_Release_1 {
     static int WStaff = rand.nextInt(50); //Assigning random number spots taken
     static int[] spotsAvail = {200, 200, 200, 200, 200, 200, 200, 200};
     static int[] takenSpots = {NStudent, NStaff, EStudent, EStaff, SStudent, SStaff, WStudent, WStaff};
+    static String[] events = {"Hub City Fest", "COVID-19 Testing", "Football Game", "Basketball Game","Graduation"};
     
     
 	public Project_Release_1() {
@@ -46,6 +47,7 @@ public class Project_Release_1 {
         String[] parkLots = {"North Student Parking", "North Staff Parking", "East Student Parking", 
                              "East Staff Parking", "South Student Parking", 
                              "South Staff Parking", "West Student Parking", "West Staff Parking"};
+        
         System.out.println(total);
         simulate(parkLots);
         
@@ -65,14 +67,21 @@ public class Project_Release_1 {
     
     public static void simulate(String[] lots) {
 
-    	int ind = 0;
+    	int ind = 0, rando = rand.nextInt(8), randEvent = rand.nextInt(5);
     	int[] aver = {0, 0, 0, 0, 0, 0, 0, 0};
     	while(ind != 7) {
         	for(int i = 0; i < lots.length; i++) {
-        		spotsAvail[i] -= takenSpots[i];
-        		spotsAvailable(spotsAvail[i], lots[i]);
-        		aver[i] += takenSpots[i];
-        		takenSpots[i] = rand.nextInt(50);
+        		if(i == rando) {
+        			spotsAvail[i] = 0;
+        			System.out.println("There are no spots available at " + lots[i] + " due to this ongoing "
+        					+ "event: "+ events[randEvent]);
+        		}
+        		else{
+        			spotsAvail[i] -= takenSpots[i];
+        			spotsAvailable(spotsAvail[i], lots[i]);
+        			aver[i] += takenSpots[i];
+        			takenSpots[i] = rand.nextInt(50);
+        		}
         	}
         	System.out.println();
         	ind++;
