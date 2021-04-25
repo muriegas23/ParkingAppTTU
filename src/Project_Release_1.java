@@ -1,3 +1,5 @@
+// Names:
+// Rodrigo Sanchez, Joshua Greenawalt, Razan Alnaber, Matthew Uriegas
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -75,12 +77,24 @@ public class Project_Release_1 {
         			spotsAvail[i] = 0;
         			System.out.println("There are no spots available at " + lots[i] + " due to this ongoing "
         					+ "event: "+ events[randEvent]);
+        			try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
         		}
         		else{
         			spotsAvail[i] -= takenSpots[i];
         			spotsAvailable(spotsAvail[i], lots[i]);
         			aver[i] += takenSpots[i];
         			takenSpots[i] = rand.nextInt(50);
+        			try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
         		}
         	}
         	System.out.println();
@@ -89,7 +103,7 @@ public class Project_Release_1 {
     	int lotAver = 0;
     	
     	for(int i = 0; i < aver.length;i++) {
-    		lotAver = averageSpots(aver[i], 7);
+    		lotAver = averageSpots(aver[i], 7); // For loop used to check aver in each lot
     		System.out.println("The average spots used after each day for " + lots[i] + " is " + lotAver);
     	}
         
