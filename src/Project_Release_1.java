@@ -7,6 +7,7 @@
  */
 
 import java.util.Random;
+import java.util.Scanner;
 /**
  *
  * @author Rodrigo 
@@ -50,8 +51,19 @@ public class Project_Release_1 {
                              "East Staff Parking", "South Student Parking", 
                              "South Staff Parking", "West Student Parking", "West Staff Parking"};
         
+
+        display_menu();
+        int uChoice = getUserInput();
+        
+        switch(uChoice) {
+        	
+        	case 1:
+        		UserFile m = new UserFile();
+        		m.signinUser();
+        }
+        
         System.out.println(total);
-        simulate(parkLots);
+//        simulate(parkLots);
         
     }
     
@@ -113,6 +125,29 @@ public class Project_Release_1 {
     
     public static int averageSpots(int a, int b) {
     	return a/b;
+    }
+    
+    @SuppressWarnings("resource")
+	public static int getUserInput() {
+    	while(true) {
+	        Scanner inp = new Scanner(System.in);
+	        System.out.println("Enter a choice: "); 
+	        try {
+	            int choice = inp.nextInt();
+	            return choice;
+	        } catch(Exception e) {
+	        	System.out.println("Your choice needs to be an number.\n");
+	        }
+    	}
+        
+    }
+    
+    public static void display_menu() {
+        System.out.println("-----Welcome to Parking Texas Tech-----");
+        System.out.println("1.) Sign in");
+        System.out.println("2.) Create an Account");
+        System.out.println("3.) Exit");
+        
     }
     
 }
