@@ -1,0 +1,8 @@
+Matt,Uriegas,null,null,null,null,null,null
+Matt,Urierg,13224,amtre,qwutrere,false,mature#3qweaw,NStaff
+Matt,Uriegas,11565427,maturieg,password,false,maturieg@gmail.com,WStudent
+Jose,Torres,12435234,jotres,qwippo,true,josetorr@yahoo.org,1
+Matt,Uriegas,1232414143,matueri,pasedweo,false,muriegas@yes.net,1
+Lou,Will,6243234,lWill,1234,true,lwill@yes.org,1
+Jonah,Hill,54345436,jHill123,4321,true,jHill@boi,com,1
+Rigo,Sanches,43215155,rSanch,yes,false,rSanch@bruh.com,EStudent
