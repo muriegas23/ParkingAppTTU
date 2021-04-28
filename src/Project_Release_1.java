@@ -42,6 +42,8 @@ public class Project_Release_1 {
     static String[] events = {"Hub City Fest", "COVID-19 Testing", "Football Game", "Basketball Game","Graduation"};
     static String FP = "C:\\Users\\murie\\Desktop\\test\\Project_Release_1\\src\\";
     static Scanner inp = new Scanner(System.in);
+    static String[] Lots = {"NStudent", "NStaff", "EStudent", "EStaff", "SStudent", "SStaff", "WStudent", "WStaff"};
+
     
     
     public static void main(String[] args) {
@@ -50,7 +52,6 @@ public class Project_Release_1 {
         String[] parkLots = {"North Student Parking", "North Staff Parking", "East Student Parking", 
                              "East Staff Parking", "South Student Parking", 
                              "South Staff Parking", "West Student Parking", "West Staff Parking"};
-        String[] Lots = {"NStudent", "NStaff", "EStudent", "EStaff", "SStudent", "SStaff", "WStudent", "WStaff"};
         
         int ind = 0;
     	int[] aver = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -73,15 +74,14 @@ public class Project_Release_1 {
 		  				int trys = 0;
 		  				
 		  				while(!isPwd(uPwd) && trys != 3) { // Checks if user entered wrong password
-		  					
-		  					if(trys == 3) {
-		  						System.out.println("You have exceeded your tries, returning to menu");
-		  						continue;
-		  					}
 		  					System.out.println("Password is incorrect");
 		  					System.out.println("Enter password again: ");
 		  					uPwd=inp.nextLine();
 		  					trys++;
+		  				}
+		  				if(trys==3) {
+	  						System.out.println("You have exceeded your tries, returning to menu\n");
+		  					continue;
 		  				}
 		  				
 		  				System.out.println("You made it!\n"); //User successfully logs in
@@ -89,8 +89,8 @@ public class Project_Release_1 {
 		  				System.out.println("NStudent for North Student Parking / NStaff for North Staff Parking etc.. ");
 		  				String area = inp.nextLine();
 		  				
-		  				if(isValidArea(Lots, area)) {
-		  					while(!(checkStatus(area, uName, uPwd))) {
+		  				if(isValidArea(area)) {
+		  					while(!(checkStaffStatus(area, uName, uPwd))) {
 				  				System.out.println("Which area are you looking to park in? ");
 				  				System.out.println("NStudent for North Student Parking / NStaff for North Staff Parking etc.. ");
 				  				area = inp.nextLine();
@@ -98,9 +98,30 @@ public class Project_Release_1 {
 							display_menu(2);
 							System.out.println("Enter a choice: "); 
 							int uChoiceII = getUserInput();
+							boolean cEvent = false, cAver = false;
+							int ave = 0;
 							switch(uChoiceII) {
 									case 1:
-										
+							        	simulate(parkLots, aver, rando, randEvent, area, cEvent, cAver);
+							        	break;
+									case 2:
+										cEvent = true;
+										simulate(parkLots, aver, rando, randEvent, area, cEvent, cAver);
+										break;
+									case 3:
+										cAver = true;
+										simulate(parkLots, aver, rando, randEvent, area, cEvent, cAver);
+										int arrInd = getIndex(area);
+								    	for(int i = 0; i < aver.length;i++) {
+								    		if(arrInd == i) {
+									    		ave = averageSpots(aver[i], 7); // For loop used to check aver in each lot
+									    		System.out.println("The average spots used after each day for " + parkLots[i] + " is " + ave);
+									    		break;
+								    		}
+								    	}
+								    	break;
+									case 4:
+										continue;
 							}
 		  					
 		  				}
@@ -135,15 +156,14 @@ public class Project_Release_1 {
 		  		
 		  }
           
-        	simulate(parkLots, aver, rando, randEvent);
         	ind++;
         }
 
-    	int lotAver = 0;
-    	for(int i = 0; i < aver.length;i++) {
-    		lotAver = averageSpots(aver[i], 7); // For loop used to check aver in each lot
-    		System.out.println("The average spots used after each day for " + parkLots[i] + " is " + lotAver);
-    	}
+//    	int lotAver = 0;
+//    	for(int i = 0; i < aver.length;i++) {
+//    		lotAver = averageSpots(aver[i], 7); // For loop used to check aver in each lot
+//    		System.out.println("The average spots used after each day for " + parkLots[i] + " is " + lotAver);
+//    	}
         
     }
     
@@ -158,36 +178,49 @@ public class Project_Release_1 {
 	    }
     }
     
-    public static void simulate(String[] lots, int [] a, int rando, int rEvent) {
+    public static void simulate(String[] lots, int [] a, int rando, int rEvent, String ar, boolean cEve, boolean cAv) {
 
-    	
+    	int index = getIndex(ar);
+
     	for(int i = 0; i < lots.length; i++) {
     		if(i == rando) {
     			spotsAvail[i] = 0;
-    			System.out.println("There are no spots available at " + lots[i] + " due to this ongoing "
-    					+ "event: "+ events[rEvent]);
-    			try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//    			try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
     		}
     		else{
     			spotsAvail[i] -= takenSpots[i];
-    			spotsAvailable(spotsAvail[i], lots[i]);
     			a[i] += takenSpots[i];
     			takenSpots[i] = rand.nextInt(50);
-    			try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//    			try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
     		}
     	}
-        System.out.println();
     	
+    	if(index==rando) {
+    		System.out.println("There are no spots available at " + lots[index] + " due to this ongoing "
+    				+ "event: "+ events[rEvent]);
+    	}
+    	else if(cEve) {
+    		System.out.println("There are no events going on in " + lots[index] + ".");
+    		System.out.println();
+    	}
+    	else if(!cAv){
+    		spotsAvailable(spotsAvail[index], lots[index]); 
+    		System.out.println();
+    		
+    	}
+    	else {
+    		return;
+    	}
         
     }
     
@@ -325,9 +358,9 @@ public class Project_Release_1 {
     	return false;
     }
     
-    public static boolean isValidArea(String [] arr, String str) {
+    public static boolean isValidArea(String str) {
     	
-         for (String element : arr) {
+         for (String element : Lots) {
              if (element.equals(str)) {
                  return true;
              }
@@ -336,7 +369,7 @@ public class Project_Release_1 {
 
     }
     
-    public static boolean checkStatus(String ar, String user, String pwd) {
+    public static boolean checkStaffStatus(String ar, String user, String pwd) {
     	ArrayList<Object> result = new ArrayList<>();
 
     	try (Scanner s = new Scanner(new FileReader(FP + "users.txt"))) {
@@ -366,6 +399,17 @@ public class Project_Release_1 {
 		
     	}    	
     	return false;
+    }
+    
+    public static int getIndex(String a) {
+    	int i = 0;
+        for (String element : Lots) {
+            if (element.equals(a)) {
+                break;
+            }
+            i++;
+        }
+        return i;
     }
     
 }
